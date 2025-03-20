@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,7 +25,7 @@ public class CustomUserDetailService implements UserDetailsService {
                 new UsernameNotFoundException("User not found"));
 
         return new User(userEntity.getUsername(), userEntity.getPassword(),
-                Arrays.stream(userEntity.getRole().split("\\|"))
+                Arrays.stream(userEntity.getRole().toString().split("\\|"))
                         .map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
     }
 }

@@ -29,7 +29,11 @@ public class UserEntity {
     @Column(nullable = false)
     private String lastName;
 
-    private String role;
+    private String account_type;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 
 }

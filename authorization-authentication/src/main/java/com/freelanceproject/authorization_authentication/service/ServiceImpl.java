@@ -40,7 +40,7 @@ public class ServiceImpl {
             return "Username already taken";
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole("ROLE_" + user.getRole());
+        user.setRole(user.getRole());
         userRepository.save(user);
 
         return "User Registered successfully";
