@@ -1,5 +1,6 @@
 package com.freelanceproject.authorization_authentication.controllers;
 
+import com.freelanceproject.authorization_authentication.model.Role;
 import com.freelanceproject.authorization_authentication.model.UserEntity;
 import com.freelanceproject.authorization_authentication.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,18 @@ public class managementUser {
     @GetMapping("/{id}")
     public ResponseEntity<UserEntity> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserById(id));
+    }
+    @GetMapping("/allfreelancer")
+    public ResponseEntity<List<UserEntity>> getallfreelancer() {
+        return ResponseEntity.ok(userService.findbyrole(Role.ROLE_FREELANCER));
+    }
+    @GetMapping("/alladmins")
+    public ResponseEntity<List<UserEntity>> alladmins() {
+        return ResponseEntity.ok(userService.findbyrole(Role.ROLE_ADMIN));
+    }
+    @GetMapping("/allclients")
+    public ResponseEntity<List<UserEntity>> allclients() {
+        return ResponseEntity.ok(userService.findbyrole(Role.ROLE_CLIENT));
     }
 
     @PostMapping

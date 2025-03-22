@@ -1,5 +1,6 @@
 package com.freelanceproject.authorization_authentication.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -1,11 +1,13 @@
 package com.freelanceproject.authorization_authentication.service;
 
+import com.freelanceproject.authorization_authentication.model.Role;
 import com.freelanceproject.authorization_authentication.model.UserEntity;
 import com.freelanceproject.authorization_authentication.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +26,9 @@ public class UserService {
 
     public UserEntity createUser(UserEntity user) {
         return userRepository.save(user);
+    }
+    public List<UserEntity> findbyrole(Role role) {
+        return userRepository.findByRole(role);
     }
 
     public UserEntity updateUser(Long id, UserEntity userDTO) {
