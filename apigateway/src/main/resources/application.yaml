@@ -20,6 +20,12 @@ spring:
             - Path=/api/reviews/**
           filters:
             - AuthenticationPreFilter
+        - id: messaging-server
+          uri: lb://MESSAGING-SERVICE
+          predicates:
+            - Path=/api/chats/**
+          filters:
+            - AuthenticationPreFilter
       globalcors:
         cors-configurations:
           '[/**]':
