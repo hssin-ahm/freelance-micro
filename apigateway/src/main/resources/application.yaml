@@ -26,6 +26,12 @@ spring:
             - Path=/api/chats/**
           filters:
             - AuthenticationPreFilter
+        - id: notifications-server
+          uri: lb://NOTIFICATION-SERVICE
+          predicates:
+            - Path=/api/notifications/**
+          filters:
+            - AuthenticationPreFilter
       globalcors:
         cors-configurations:
           '[/**]':
