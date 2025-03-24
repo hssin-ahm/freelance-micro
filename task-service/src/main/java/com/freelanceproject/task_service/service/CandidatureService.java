@@ -3,6 +3,7 @@ package com.freelanceproject.task_service.service;
 
 import com.freelanceproject.task_service.model.Candidature;
 import com.freelanceproject.task_service.model.Task;
+import com.freelanceproject.task_service.model.TaskStatus;
 import com.freelanceproject.task_service.repositories.CandidatureRepo;
 import com.freelanceproject.task_service.repositories.TaskRepository;
 import org.springframework.stereotype.Service;
@@ -55,6 +56,7 @@ public class CandidatureService {
             candidature.setConfirmed(true);
             Task task = taskRepository.findById(candidature.getTaskid()).get();
             task.setFreelancerId(candidature.getFreelanceid());
+            task.setStatus(TaskStatus.IN_PROGRESS);
             taskRepository.save(task);
             return candidatureRepo.save(candidature);
         }).orElseThrow(() -> new RuntimeException("Candidature not found"));
