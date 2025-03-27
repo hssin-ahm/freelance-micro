@@ -35,16 +35,16 @@ public class ServiceImpl {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public String registerUser(UserEntity user){
+    public UserEntity registerUser(UserEntity user){
         Optional<UserEntity> userEntity = userRepository.findByUsername(user.getUsername());
         if (userEntity.isPresent()){
-            return "Username already taken";
+            throw new RuntimeException("User already exists");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(user.getRole());
         userRepository.save(user);
 
-        return "User Registered successfully";
+        return user;
     }
 
     public Map<String, Object> login(String username, String password) {
@@ -56,7 +56,7 @@ public class ServiceImpl {
             response.put("status", "User Not Found");
             return response;
         }
-        LoginResponseDTO responseDTO = new LoginResponseDTO(userEntity.get().getUsername(), userEntity.get().getEmail(), userEntity.get().getFirstName(), userEntity.get().getLastName(), userEntity.get().getAccount_type(), userEntity.get().getRole());
+        LoginResponseDTO responseDTO = new LoginResponseDTO(userEntity.get().getId(), userEntity.get().getUsername(), userEntity.get().getEmail(), userEntity.get().getFirstName(), userEntity.get().getLastName(), userEntity.get().getAccount_type(), userEntity.get().getRole());
         String accessToken = generateToken(userEntity.get(), authentication, 36000000);
         response.put("access_token", accessToken);
         response.put("expires_in", 36000000);
@@ -74,8 +74,6 @@ public class ServiceImpl {
                 .claim("role", authentication.getAuthorities().stream()
                         .map(GrantedAuthority::getAuthority)
                         .collect(Collectors.toSet()))
-                .claim("firstName", userEntity.getFirstName())
-                .claim("lastName", userEntity.getLastName())
                 .claim("userId", userEntity.getId())
                 .build();
 

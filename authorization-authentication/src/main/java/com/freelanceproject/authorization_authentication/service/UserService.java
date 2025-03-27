@@ -1,7 +1,6 @@
 package com.freelanceproject.authorization_authentication.service;
 
-import com.freelanceproject.authorization_authentication.model.Role;
-import com.freelanceproject.authorization_authentication.model.UserEntity;
+import com.freelanceproject.authorization_authentication.model.*;
 import com.freelanceproject.authorization_authentication.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,8 +23,49 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
-    public UserEntity createUser(UserEntity user) {
-        return userRepository.save(user);
+    public UserEntity createUser(Long id, UserEntity updatedUser) {
+        Optional<UserEntity> existingUserOptional = userRepository.findById(id);
+
+        if (existingUserOptional.isPresent()) {
+            UserEntity existingUser = existingUserOptional.get();
+
+            // Update fields
+            existingUser.setFirstName(updatedUser.getFirstName());
+            existingUser.setLastName(updatedUser.getLastName());
+            existingUser.setBirthDate(updatedUser.getBirthDate());
+            existingUser.setCompleted(updatedUser.getCompleted());
+
+            //Update Competences
+            if (updatedUser.getCompetences() != null) {
+                existingUser.getCompetences().clear();
+                for (Competence competence : updatedUser.getCompetences()) {
+                    competence.setUser(existingUser);
+                    existingUser.getCompetences().add(competence);
+                }
+            }
+
+            // Update Formations
+            if (updatedUser.getFormations() != null) {
+                existingUser.getFormations().clear();
+                for (Formation formation : updatedUser.getFormations()) {
+                    formation.setUser(existingUser);
+                    existingUser.getFormations().add(formation);
+                }
+            }
+
+            // Update Experiences
+            if (updatedUser.getExperiences() != null) {
+                existingUser.getExperiences().clear();
+                for (Experience experience : updatedUser.getExperiences()) {
+                    experience.setUser(existingUser);
+                    existingUser.getExperiences().add(experience);
+                }
+            }
+
+            return userRepository.save(existingUser);
+        } else {
+            throw new RuntimeException("User not found with ID: " + id);
+        }
     }
     public List<UserEntity> findbyrole(Role role) {
         return userRepository.findByRole(role);

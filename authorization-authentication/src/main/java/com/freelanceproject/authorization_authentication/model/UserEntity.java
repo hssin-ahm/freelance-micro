@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "users")
@@ -24,11 +27,13 @@ public class UserEntity {
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
     private String firstName;
 
-    @Column(nullable = false)
     private String lastName;
+
+    private Date birthDate;
+
+    private Boolean completed;
 
     private String account_type;
 
@@ -36,5 +41,16 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(name = "cv_filename")
+    private String cvFilename;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Competence> competences;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Formation> formations;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Experience> experiences;
 
 }

@@ -38,15 +38,15 @@ public class managementUser {
         return ResponseEntity.ok(userService.findbyrole(Role.ROLE_CLIENT));
     }
 
-    @PostMapping
-    public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity userDTO) {
-        return ResponseEntity.ok(userService.createUser(userDTO));
+    @PutMapping("/{id}")
+    public ResponseEntity<UserEntity> createUser(@PathVariable Long id, @RequestBody UserEntity updatedUser) {
+        return ResponseEntity.ok(userService.createUser(id, updatedUser));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UserEntity> updateUser(@PathVariable Long id, @RequestBody UserEntity userDTO) {
-        return ResponseEntity.ok(userService.updateUser(id, userDTO));
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<UserEntity> updateUser(@PathVariable Long id, @RequestBody UserEntity userDTO) {
+//        return ResponseEntity.ok(userService.updateUser(id, userDTO));
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {

@@ -12,7 +12,12 @@ spring:
     hibernate:
       ddl-auto: update  # Options: create, update, validate, none
     show-sql: true
-
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+file:
+  upload-dir: uploads
 eureka:
   client:
     register-with-eureka: true
