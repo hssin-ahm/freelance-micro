@@ -33,6 +33,8 @@ public class UserEntity {
 
     private Date birthDate;
 
+    private String imageFilename;
+
     private Boolean completed;
 
     private String account_type;
