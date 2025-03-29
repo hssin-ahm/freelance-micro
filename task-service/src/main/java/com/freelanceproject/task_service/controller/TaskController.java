@@ -29,7 +29,7 @@ public class TaskController {
 
     @PostMapping
     public Task createTask(@RequestBody Task task) {
-        task.setStatus(TaskStatus.PENDING);
+        task.setStatus(TaskStatus.OPEN);
         return taskService.createTask(task);
     }
     @GetMapping("/client/{clientId}")

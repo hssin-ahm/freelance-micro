@@ -24,4 +24,7 @@ public class Candidature {
     private String motivation ;
 
     private Boolean confirmed;
+
+    @Column(name = "cv_filename")
+    private String cvFilename;
 }

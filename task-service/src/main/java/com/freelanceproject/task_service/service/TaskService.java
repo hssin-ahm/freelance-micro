@@ -1,6 +1,7 @@
 package com.freelanceproject.task_service.service;
 
 import com.freelanceproject.task_service.model.Task;
+import com.freelanceproject.task_service.model.TaskCompetance;
 import com.freelanceproject.task_service.model.TaskStatus;
 import com.freelanceproject.task_service.repositories.TaskRepository;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,11 @@ public class TaskService {
     }
 
     public Task createTask(Task task) {
-        task.setStatus(TaskStatus.PENDING);
+        if (task.getCompetences() != null) {
+            for (TaskCompetance competence : task.getCompetences()) {
+                competence.setTask(task);  // Assign the task reference
+            }
+        }
         return taskRepository.save(task);
     }
 
