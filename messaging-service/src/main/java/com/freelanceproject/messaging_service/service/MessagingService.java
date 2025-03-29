@@ -21,13 +21,14 @@ public class MessagingService {
         this.messageRepository = messageRepository;
     }
 
-    public Chat startChat(Long user1Id, Long user2Id) {
+    public Chat startChat(Long user1Id, Long user2Id, String canalName) {
         Optional<Chat> existingChat = chatRepository.findByUser1IdAndUser2Id(user1Id, user2Id);
         if (existingChat.isPresent()) {
             return existingChat.get();
         }
 
         Chat chat = Chat.builder()
+                .canalName(canalName)
                 .user1Id(user1Id)
                 .user2Id(user2Id)
                 .build();

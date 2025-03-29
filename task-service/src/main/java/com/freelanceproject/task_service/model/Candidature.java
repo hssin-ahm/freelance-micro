@@ -22,9 +22,9 @@ public class Candidature {
     private Long freelanceid;
 
     private String motivation ;
-
+    private String freelancerEmail;
     private Boolean confirmed;
 
     @Column(name = "cv_filename")
-    private String cvFilename;
+    private Boolean  withCv;
 }

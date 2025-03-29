@@ -18,6 +18,8 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String canalName;
+
     private Long user1Id;
     private Long user2Id;
 

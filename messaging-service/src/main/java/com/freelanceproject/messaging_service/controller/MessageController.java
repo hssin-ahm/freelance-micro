@@ -19,8 +19,8 @@ public class MessageController {
     }
 
     @PostMapping("/start")
-    public ResponseEntity<Chat> startChat(@RequestParam Long user1Id, @RequestParam Long user2Id) {
-        return ResponseEntity.ok(messagingService.startChat(user1Id, user2Id));
+    public ResponseEntity<Chat> startChat(@RequestParam Long clientId, @RequestParam Long freelancerId, @RequestParam String canalName) {
+        return ResponseEntity.ok(messagingService.startChat(clientId, freelancerId, canalName));
     }
 
     @PostMapping("/{chatId}/send")

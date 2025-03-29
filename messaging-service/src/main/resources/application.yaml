@@ -26,7 +26,7 @@ keyStore:
   path: keystore.jks
   password: password
 server:
-  port: 8085
+  port: 8086
   servlet:
     context-path: /api
 
