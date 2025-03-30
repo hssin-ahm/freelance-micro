@@ -56,7 +56,7 @@ public class ServiceImpl {
             response.put("status", "User Not Found");
             return response;
         }
-        LoginResponseDTO responseDTO = new LoginResponseDTO(userEntity.get().getId(), userEntity.get().getUsername(), userEntity.get().getEmail(), userEntity.get().getFirstName(), userEntity.get().getLastName(), userEntity.get().getAccount_type(), userEntity.get().getRole());
+        LoginResponseDTO responseDTO = new LoginResponseDTO(userEntity.get().getId(), userEntity.get().getUsername(), userEntity.get().getEmail(), userEntity.get().getFirstName(), userEntity.get().getLastName(), userEntity.get().getAccount_type(), userEntity.get().getRole(), userEntity.get().getImageFilename());
         String accessToken = generateToken(userEntity.get(), authentication, 36000000);
         response.put("access_token", accessToken);
         response.put("expires_in", 36000000);

@@ -53,6 +53,11 @@ public class TaskController {
         return ResponseEntity.ok(taskService.updateTask(id, updatedTask));
     }
 
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Task> markTheTaskAsCompleted(@PathVariable Long id) {
+        return ResponseEntity.ok(taskService.updateTaskStatus(id));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
